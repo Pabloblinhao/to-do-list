@@ -1,7 +1,8 @@
 import "./App.css";
 import TodoForm from "./components/TodoForm";
 import TodoItem from "./components/TodoItem"
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { TodoService } from "services/TodoService";
 
 function App() {
   const [todos, setTodos] = useState([]);
@@ -30,6 +31,16 @@ function App() {
     })
     setTodos(updatedTodos)
   }
+
+
+  const getLista = async ()=>{
+    const response = await TodoService.getLista();
+    setTodos(response);
+  }
+
+  useEffect(()=>{
+    getLista();
+  },[]);
 
   return (
     <div className="todo-app">
